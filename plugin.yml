@@ -2,4 +2,5 @@ name: WorldPlayerCount
 version: 1.0
 api: 3.12.2
 main: Khaled\WorldPlayerCount
-author: xXKHaLeD098Xx
+authors:
+- xXKHaLeD098Xx
