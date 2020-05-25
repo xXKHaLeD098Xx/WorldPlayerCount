@@ -7,6 +7,6 @@ parameters:
         - /source/src
     ignoreErrors:
         -
-            message: "#Access to an undefined property [a-zA-Z0-9\\_]+::\::$hitSessions.#"
+            message: "#Access to an undefined property [a-zA-Z0-9\\_]+::\$hitSessions.#"
             path: /source/src/Khaled/WorldPlayerCount.php
             
