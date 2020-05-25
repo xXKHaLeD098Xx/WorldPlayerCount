@@ -2,11 +2,11 @@ parameters:
     level: 1
     checkMissingIterableValueType: false
     paths:
-        - /source/src
+        - /src
     autoload_files:
         - phar:///pocketmine/PocketMine-MP.phar/vendor/autoload.php
     autoload_directories:
-        - /source/src
+        - /src
         - /deps
     ignoreErrors:
         -
