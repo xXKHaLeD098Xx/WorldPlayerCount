@@ -13,5 +13,3 @@ parameters:
             message: "#Access to an undefined property pocketmine\plugin\Plugin::$hitSessions.#"
             count: 1
             path: /source/src/Khaled/WorldPlayerCount.php
-
-        -
