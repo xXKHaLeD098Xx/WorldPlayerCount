@@ -2,11 +2,11 @@ parameters:
     level: 1
     checkMissingIterableValueType: false
     paths:
-        - /src
+        - /source/src
     autoload_directories:
-        - /src
+        - /source/src
     ignoreErrors:
         -
             message: "#Access to an undefined property [a-zA-Z0-9\\_]+::\::$hitSessions.#"
-            path: /src/Khaled/WorldPlayerCount.php
+            path: /source/src/Khaled/WorldPlayerCount.php
             
