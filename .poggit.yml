@@ -4,6 +4,6 @@ branches:
 - master
 projects:
   WorldPlayerCount:
-    icon: "Image.jpg"
+    icon: "icon.png"
     path: ""
 ...
