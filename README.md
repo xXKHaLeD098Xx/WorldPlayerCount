@@ -4,5 +4,5 @@ I have tested this, and it's bug-free, so feel free to use it!
 ## Usage
 Click on the picture below, it will redirect you to a youtube video with the usage: <br/>
 ↓ ↓ ↓
-[![Youtube WorldPlayerCount](Image.jpg)](https://www.youtube.com/watch?v=gHphDPJyFgM&t)
+[![Youtube WorldPlayerCount](icon.png)](https://www.youtube.com/watch?v=gHphDPJyFgM&t)
 
