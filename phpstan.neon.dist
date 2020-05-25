@@ -10,6 +10,7 @@ parameters:
         - /deps
     ignoreErrors:
         -
-            message: "#Access to an undefined property pocketmine\plugin\Plugin::$hitSessions.#"
+            message: "#Access to an undefined property [a-zA-Z0-9\\_]+::\::$hitSessions.#"
             count: 1
             path: /source/src/Khaled/WorldPlayerCount.php
+            
