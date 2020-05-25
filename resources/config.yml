@@ -1,2 +1,2 @@
 worlds: []
-count: "{world} \n {number} Playing"
+count: "{number} Playing"
