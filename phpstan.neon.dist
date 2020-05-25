@@ -12,5 +12,5 @@ parameters:
         -
             message: "#Access to an undefined property [a-zA-Z0-9\\_]+::\::$hitSessions.#"
             count: 1
-            path: /source/src/Khaled/WorldPlayerCount.php
+            path: /src/Khaled/WorldPlayerCount.php
             
