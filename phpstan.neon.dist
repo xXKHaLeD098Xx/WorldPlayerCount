@@ -1,0 +1,17 @@
+parameters:
+    level: max
+    checkMissingIterableValueType: false
+    paths:
+        - /source/src
+    autoload_files:
+        - phar:///pocketmine/PocketMine-MP.phar/vendor/autoload.php
+    autoload_directories:
+        - /source/src
+        - /deps
+    ignoreErrors:
+        -
+            message: "#Access to an undefined property pocketmine\plugin\Plugin::$hitSessions.#"
+            count: 1
+            path: /source/src/Khaled/WorldPlayerCount.php
+
+        -
