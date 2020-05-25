@@ -3,11 +3,8 @@ parameters:
     checkMissingIterableValueType: false
     paths:
         - /src
-    autoload_files:
-        - phar:///pocketmine/PocketMine-MP.phar/vendor/autoload.php
     autoload_directories:
         - /src
-        - /deps
     ignoreErrors:
         -
             message: "#Access to an undefined property [a-zA-Z0-9\\_]+::\::$hitSessions.#"
