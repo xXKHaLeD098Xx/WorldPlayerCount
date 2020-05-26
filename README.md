@@ -5,4 +5,4 @@ I have tested this, and it's bug-free so far, so feel free to use it!
 ## Usage
 Click on the picture below, it will redirect you to a youtube video with the usage: <br>
 ↓ ↓ ↓ <br>
-[![Youtube WorldPlayerCount](https://github.com/xXKHaLeD098Xx/WorldPlayerCount/blob/master/icon.png)](https://www.youtube.com/watch?v=gHphDPJyFgM&t)
+[![Youtube WorldPlayerCount](https://github.com/xXKHaLeD098Xx/WorldPlayerCount/blob/master/myicon.png)](https://www.youtube.com/watch?v=gHphDPJyFgM&t)
