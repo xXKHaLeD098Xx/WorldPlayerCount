@@ -50,19 +50,21 @@ class WorldPlayerCount extends PluginBase implements Listener{
 	public function slapperCreation(SlapperCreationEvent $ev){
 		$entity = $ev->getEntity();
 		$name = $entity->getNameTag();
-		$allines = explode("\n", $name);
-		$pos = strpos($allines[1], "count ");
-		if($pos !== false){
-			$levelname = str_replace("count ", "", $allines[1]);
-			if(file_exists($this->getServer()->getDataPath()."/worlds/".$levelname)){
-				if (!$this->getServer()->isLevelLoaded($levelname)) $this->getServer()->loadLevel($levelname);
-				$entity->namedtag->setString("playerCount", $levelname);
-				$worlds = $this->getConfig()->get("worlds");
-				if(!in_array($levelname, $worlds)){
-					array_push($worlds, $levelname);
-					$this->getConfig()->set("worlds", $worlds);
-					$this->getConfig()->save();
-					return;
+		if(strpos($name, "\n") !== false){
+			$allines = explode("\n", $name);
+			$pos = strpos($allines[1], "count ");
+			if($pos !== false){
+				$levelname = str_replace("count ", "", $allines[1]);
+				if(file_exists($this->getServer()->getDataPath()."/worlds/".$levelname)){
+					if (!$this->getServer()->isLevelLoaded($levelname)) $this->getServer()->loadLevel($levelname);
+					$entity->namedtag->setString("playerCount", $levelname);
+					$worlds = $this->getConfig()->get("worlds");
+					if(!in_array($levelname, $worlds)){
+						array_push($worlds, $levelname);
+						$this->getConfig()->set("worlds", $worlds);
+						$this->getConfig()->save();
+						return;
+					}
 				}
 			}
 		}
