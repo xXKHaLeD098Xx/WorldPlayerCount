@@ -81,7 +81,7 @@ class WorldPlayerCount extends PluginBase implements Listener{
 		$damager = $event->getDamager();
 		if($damager instanceof Player){
 			if(isset($slapper->hitSessions[$damager->getName()])){
-				$slapperDelete = new SlapperDeletionEvent($event->getEntity(), $damager);
+				$slapperDelete = new SlapperDeletionEvent($event->getEntity());
 				$slapperDelete->call();
 			}
 		}
