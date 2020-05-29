@@ -12,9 +12,16 @@ use slapper\events\SlapperCreationEvent;
 use slapper\events\SlapperDeletionEvent;
 use xXKHaLeD098Xx\WorldPlayerCount\Task\RefreshCount;
 use slapper\events\SlapperHitEvent;
+use slapper\Main as SlapperMain;
 use pocketmine\Player;
 
 class WorldPlayerCount extends PluginBase implements Listener{
+
+	public function getSlapper() : SlapperMain{
+		/** @var SlapperMain $api */
+		$api = $this->getServer()->getPluginManager()->getPlugin("Slapper");
+		return $api;
+	}
 
 	public function onEnable()
 	{
@@ -77,7 +84,7 @@ class WorldPlayerCount extends PluginBase implements Listener{
 	}
 
 	public function onSlapperHit(SlapperHitEvent $event){ // jojoe77777 didn't call SlapperDeletionEvent on EntityDamageEvent so i will do it instead
-		$slapper = $this->getServer()->getPluginManager()->getPlugin("Slapper");
+		$slapper = $this->getSlapper();
 		$damager = $event->getDamager();
 		if($damager instanceof Player){
 			if(isset($slapper->hitSessions[$damager->getName()])){
