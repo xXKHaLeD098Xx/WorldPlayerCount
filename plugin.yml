@@ -1,6 +1,6 @@
 name: WorldPlayerCount
 version: "1.0-beta"
-api: [3.12.3]
+api: [3.12.5]
 author: xXKHaLeD098Xx
 depend: [Slapper]
 main: xXKHaLeD098Xx\WorldPlayerCount\WorldPlayerCount
