@@ -175,11 +175,6 @@ class WorldPlayerCount extends PluginBase implements Listener{
 						$str = str_replace("{number}", $counts, $count);
 						$allines = explode("\n", $entity->getNameTag());
 						$entity->setNameTag($allines[0]."\n".$str);
-					} elseif (count($worldsNames) < 2){
-						// won't happen, but no harm right?
-						$slapperDelete = new SlapperDeletionEvent($entity);
-						$slapperDelete->call();
-						$entity->close();
 					}
 				}
 			}
