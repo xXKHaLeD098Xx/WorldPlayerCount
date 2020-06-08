@@ -1,5 +1,5 @@
 name: WorldPlayerCount
-version: "1.0-beta"
+version: "2.0-beta"
 api: 3.0.0
 author: xXKHaLeD098Xx
 depend: [Slapper]
