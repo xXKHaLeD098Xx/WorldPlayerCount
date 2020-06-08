@@ -40,11 +40,15 @@ class WorldPlayerCount extends PluginBase implements Listener{
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		$this->saveDefaultConfig();
 		$this->saveResource("config.yml");
-		$this->getScheduler()->scheduleRepeatingTask(new RefreshCount($this), 10);
+		$this->getScheduler()->scheduleRepeatingTask(new RefreshCount($this), (int) $this->getConfig()->get("count-interval") * 10);
 		$worlds = $this->getConfig()->get("worlds");
-		foreach ($worlds as $world){
+		foreach ($worlds as $key => $world){
 			if (file_exists($this->getServer()->getDataPath()."/worlds/".$world)){
 				$this->getServer()->loadLevel($world);
+			} else {
+				unset($worlds[$key]);
+				$this->getConfig()->set("worlds", $worlds);
+				$this->getConfig()->save();
 			}
 		}
 	}
@@ -56,6 +60,7 @@ class WorldPlayerCount extends PluginBase implements Listener{
 			$allines = explode("\n", $name);
 			$pos = strpos($allines[1], "count ");
 			if($pos !== false){
+				//Single world
 				$levelname = str_replace("count ", "", $allines[1]);
 				if(file_exists($this->getServer()->getDataPath()."/worlds/".$levelname)){
 					if (!$this->getServer()->isLevelLoaded($levelname)) $this->getServer()->loadLevel($levelname);
@@ -69,10 +74,24 @@ class WorldPlayerCount extends PluginBase implements Listener{
 					}
 				}
 			}
+			//Multi-world
+			$combinedPos = strpos($allines[1], "combinedcounts ");
+			if($combinedPos !== false){
+				$symbolPos = strpos($allines[1], "&");
+				if($symbolPos !== false){
+					$levelnameS = str_replace("combinedcounts ", "", $allines[1]);
+					$levelnamesInArray = explode("&", $levelnameS);
+					if(in_array("", $levelnamesInArray)) return;
+					$entity->namedtag->setString("combinedPlayerCounts", $levelnameS);
+					$this->combinedPlayerCounts();
+				}
+			}
 		}
 	}
 
 	public function onSlapperDeletion(SlapperDeletionEvent $event){
+
+		// single world
 		if($event->getEntity()->namedtag->hasTag("playerCount")){
 			$tag = $event->getEntity()->namedtag->getString("playerCount");
 			$event->getEntity()->namedtag->removeTag("playerCount");
@@ -80,6 +99,20 @@ class WorldPlayerCount extends PluginBase implements Listener{
 			unset($worlds[array_search($tag, $worlds)]);
 			$this->getConfig()->set("worlds", $worlds);
 			$this->getConfig()->save();
+		}
+		// combined
+		if($event->getEntity()->namedtag->hasTag("combinedPlayerCounts")){
+			$tag = $event->getEntity()->namedtag->getString("combinedPlayerCounts");
+			$event->getEntity()->namedtag->removeTag("combinedPlayerCounts");
+			$worlds = $this->getConfig()->get("worlds");
+			$arrayOfNames = explode("&", $tag);
+			foreach ($arrayOfNames as $name){
+				if(in_array($name, $worlds)){
+					unset($worlds[array_search($name, $worlds)]);
+			        $this->getConfig()->set("worlds", $worlds);
+			        $this->getConfig()->save();
+				}
+			}
 		}
 	}
 
@@ -94,13 +127,72 @@ class WorldPlayerCount extends PluginBase implements Listener{
 		}
 	}
 
+	// here no single world allowed, only combined ones
+
+	public function combinedPlayerCounts(){
+		$levels = $this->getServer()->getLevels();
+		foreach ($levels as $level){
+			foreach($level->getEntities() as $entity){
+				$nbt = $entity->namedtag;
+				if($nbt->hasTag("combinedPlayerCounts") && !$nbt->hasTag("playerCount")){
+					$worldsNames = explode("&", $nbt->getString("combinedPlayerCounts"));
+					foreach ($worldsNames as $name){
+						if(!file_exists($this->getServer()->getDataPath()."/worlds/".$name)){
+							unset($worldsNames[array_search($name, $worldsNames)]);
+							$slapperDelete = new SlapperDeletionEvent($entity);
+							$slapperDelete->call();
+							$entity->close();
+						}
+					}
+					// extra checks just in case
+					if(count($worldsNames) > 1){
+						$counts = 0;
+						foreach ($worldsNames as $name){
+							if($name === ""){
+								continue;
+							}
+							if($this->getServer()->isLevelLoaded($name)){
+								$worlds = $this->getConfig()->get("worlds");
+								if(!in_array($name, $worlds)){
+									$worlds[] = $name;
+									$this->getConfig()->set("worlds", $worlds);
+									$this->getConfig()->save();
+								}
+								$pmLevel = $this->getServer()->getLevelByName($name);
+								$countOfLevel = count($pmLevel->getPlayers());
+								$counts += $countOfLevel;
+							} else {
+								$worlds = $this->getConfig()->get("worlds");
+								if(!in_array($name, $worlds)){
+									$worlds[] = $name;
+									$this->getConfig()->set("worlds", $worlds);
+									$this->getConfig()->save();
+								}
+								$this->getServer()->loadLevel($name);
+							}
+						}
+						$count = $this->getConfig()->get("count");
+						$str = str_replace("{number}", $counts, $count);
+						$allines = explode("\n", $entity->getNameTag());
+						$entity->setNameTag($allines[0]."\n".$str);
+					} elseif ($worldsNames < 2){
+						// won't happen, but no harm right?
+						$slapperDelete = new SlapperDeletionEvent($entity);
+						$slapperDelete->call();
+						$entity->close();
+					}
+				}
+			}
+		}
+	}
+
 	public function playerCount(){
 		$levels = $this->getServer()->getLevels();
 		foreach ($levels as $level){
 			$entities = $level->getEntities();
 			foreach ($entities as $entity){
 				$nbt = $entity->namedtag;
-				if($nbt->hasTag("playerCount")){
+				if($nbt->hasTag("playerCount") && !$nbt->hasTag("combinedPlayerCounts")){
 					$world = $nbt->getString("playerCount");
 					$allines = explode("\n", $entity->getNameTag());
 					if(file_exists($this->getServer()->getDataPath()."/worlds/".$world)){
