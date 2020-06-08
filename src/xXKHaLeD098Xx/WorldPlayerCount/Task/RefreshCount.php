@@ -14,5 +14,6 @@ class RefreshCount extends Task {
 	public function onRun(int $currentTick)
 	{
 		$this->plugin->playerCount();
+		$this->plugin->combinedPlayerCounts();
 	}
 }
