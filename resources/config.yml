@@ -1,2 +1,3 @@
 worlds: []
+count-interval: 1
 count: "{number} Playing"
