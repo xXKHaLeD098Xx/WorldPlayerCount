@@ -28,7 +28,7 @@ class WorldPlayerCount extends PluginBase implements Listener{
 		$map = $this->getDescription()->getMap();
 		$ver = $this->getDescription()->getVersion();
 		if(isset($map["author"])){
-			if($map["author"] !== "xXKHaLeD098Xx" or $ver !== "1.0-beta"){
+			if($map["author"] !== "xXKHaLeD098Xx" or $ver !== "2.0-beta"){
 				$this->getLogger()->emergency("§cPlugin info has been changed, please give the author the proper credits, set the author to \"xXKHaLeD098Xx\" and setting the version to \"1.0 by xXKHaLeD098Xx\" if required, or else the server will shutdown on every start-up");
 				$this->getServer()->shutdown();
 				return;
