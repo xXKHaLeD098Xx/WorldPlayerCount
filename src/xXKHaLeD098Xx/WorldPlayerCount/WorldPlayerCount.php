@@ -40,7 +40,7 @@ class WorldPlayerCount extends PluginBase implements Listener{
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		$this->saveDefaultConfig();
 		$this->saveResource("config.yml");
-		$this->getScheduler()->scheduleRepeatingTask(new RefreshCount($this), (int) $this->getConfig()->get("count-interval") * 10);
+		$this->getScheduler()->scheduleRepeatingTask(new RefreshCount($this), (int) $this->getConfig()->get("count-interval") * 20);
 		$worlds = $this->getConfig()->get("worlds");
 		foreach ($worlds as $key => $world){
 			if (file_exists($this->getServer()->getDataPath()."/worlds/".$world)){
