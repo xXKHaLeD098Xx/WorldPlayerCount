@@ -15,8 +15,8 @@ A simple PocketMine addon plugin for Slapper which allows you to create a slappe
 ## Usage for single world
 __Note: This is used when creating a slapper counting the players of 1 world only__
 - First thing we add after the entity type (human) is the nametag we want, followed by a {line} tag then adding "count WORLDNAME"<br><br>
-- __Example : /slapper spawn human BedWars{line}count Hub<br>__<br>
-- Congrats!, you spawned an entity counting the players of the world "Hub"!
+- __Example : /slapper spawn human Hub{line}count Hub<br>__<br>
+- Congrats!, you spawned an entity counting the players of the world "Hub"
 ## Usage for combined worlds
 __Note: This is used when creating a slapper counting the players of more than 1 world__
 - First thing we add after the entity type (human) is the nametag we want, followed by a {line} tag then adding "combinedcounts World1&World2" and so on with the "&" symbol<br><br>
