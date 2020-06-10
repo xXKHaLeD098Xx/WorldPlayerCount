@@ -22,5 +22,8 @@ __Note: This is used when creating a slapper counting the players of more than 1
 - First thing we add after the entity type (human) is the nametag we want, followed by a {line} tag then adding "combinedcounts World1&World2" and so on with the "&" symbol<br><br>
 - __Example : /slapper spawn human SkyWars{line}combinedcounts SK-1&SK-2&SK-3__<br><br>
 - Congrats!, you spawned an entity counting the players of the worlds "SK-1", "SK-2" and "SK-3" at the same time
+## Config
+- In the config you can customize the name tag of the slapper, it is set to "{number} Playing" by default<br>
+- The count "check" interval is also customizable and it is set to 1 second by default
 ## Contacts
 In case you are confused about the usage or found a bug please contact me on my discord __@кнαℓє∂#7787__
